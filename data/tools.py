@@ -57,9 +57,9 @@ class Control(object):
 
     def event_loop(self):
         self.keys = [0] * 968
-
-        self.keys[self.test[self.counter]] = 1
-        self.counter += 1
+        if self.state_name == 'level1':
+            self.keys[self.test[self.counter]] = 1
+            self.counter += 1
         # for event in pg.event.get():
         #     if event.type == pg.QUIT:
         #         self.done = True
