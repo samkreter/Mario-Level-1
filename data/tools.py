@@ -2,6 +2,8 @@ __author__ = 'justinarmstrong'
 
 import os
 import pygame as pg
+from time import sleep
+
 
 keybinding = {
     'action':pg.K_s,
@@ -28,6 +30,9 @@ class Control(object):
         self.state_dict = {}
         self.state_name = None
         self.state = None
+        self.counter = 0
+        self.test = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,pg.K_a,pg.K_LEFT,pg.K_a,pg.K_LEFT,pg.K_a,pg.K_LEFT,pg.K_a,pg.K_LEFT,pg.K_a,pg.K_LEFT]
+
 
     def setup_states(self, state_dict, start_state):
         self.state_dict = state_dict
@@ -51,18 +56,22 @@ class Control(object):
 
 
     def event_loop(self):
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                self.done = True
-            elif event.type == pg.KEYDOWN:
-                self.keys = pg.key.get_pressed()
-                self.toggle_show_fps(event.key)
-                print("down:" + str(event.key))
-            elif event.type == pg.KEYUP:
-                self.keys = pg.key.get_pressed()
-                print("up:" + str(event.key))
+        self.keys = [0] * 968
 
-            self.state.get_event(event)
+        self.keys[self.test[self.counter]] = 1
+        self.counter += 1
+        # for event in pg.event.get():
+        #     if event.type == pg.QUIT:
+        #         self.done = True
+        #     elif event.type == pg.KEYDOWN:
+        #         self.keys = pg.key.get_pressed()
+        #         self.toggle_show_fps(event.key)
+        #         print("down:" + str(event.key))
+        #     elif event.type == pg.KEYUP:
+        #         self.keys = pg.key.get_pressed()
+        #         print("up:" + str(event.key))
+
+        #     self.state.get_event(event)
 
 
     def toggle_show_fps(self, key):
