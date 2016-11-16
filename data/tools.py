@@ -3,6 +3,7 @@ __author__ = 'justinarmstrong'
 import os
 import pygame as pg
 from time import sleep
+from moves import MOVES
 
 
 keybinding = {
@@ -30,8 +31,7 @@ class Control(object):
         self.state_dict = {}
         self.state_name = None
         self.state = None
-        self.counter = 0
-        self.test = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,pg.K_a,pg.K_LEFT,pg.K_a,pg.K_LEFT,pg.K_a,pg.K_LEFT,pg.K_a,pg.K_LEFT,pg.K_a,pg.K_LEFT]
+        self.MOVES = MOVES
 
 
     def setup_states(self, state_dict, start_state):
@@ -58,8 +58,7 @@ class Control(object):
     def event_loop(self):
         self.keys = [0] * 968
         if self.state_name == 'level1':
-            self.keys[self.test[self.counter]] = 1
-            self.counter += 1
+            self.keys[self.MOVES.pop(0)] = 1
         # for event in pg.event.get():
         #     if event.type == pg.QUIT:
         #         self.done = True
