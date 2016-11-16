@@ -56,8 +56,11 @@ class Control(object):
             elif event.type == pg.KEYDOWN:
                 self.keys = pg.key.get_pressed()
                 self.toggle_show_fps(event.key)
+                print("down:" + str(event.key))
             elif event.type == pg.KEYUP:
                 self.keys = pg.key.get_pressed()
+                print("up:" + str(event.key))
+
             self.state.get_event(event)
 
 

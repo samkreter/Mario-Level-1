@@ -19,8 +19,8 @@ class Sound(object):
     def set_music_mixer(self):
         """Sets music for level"""
         if self.overhead_info.state == c.LEVEL:
-            pg.mixer.music.load(self.music_dict['main_theme'])
-            pg.mixer.music.play()
+            # pg.mixer.music.load(self.music_dict['main_theme'])
+            # pg.mixer.music.play()
             self.state = c.NORMAL
         elif self.overhead_info.state == c.GAME_OVER:
             pg.mixer.music.load(self.music_dict['game_over'])
