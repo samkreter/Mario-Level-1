@@ -888,7 +888,7 @@ class Level1(tools._State):
             self.mario.rect.bottom = enemy.rect.top
             self.mario.state = c.JUMP
             self.mario.y_vel = -7
-        
+
 
 
     def adjust_mario_for_y_shell_collisions(self, shell):
@@ -1338,8 +1338,8 @@ class Level1(tools._State):
         """sets the new game values after a player's death"""
         if self.game_info[c.SCORE] > self.persist[c.TOP_SCORE]:
             self.persist[c.TOP_SCORE] = self.game_info[c.SCORE]
-        if self.mario.dead:
-            self.persist[c.LIVES] -= 1
+        # if self.mario.dead:
+        #     self.persist[c.LIVES] -= 1
 
         if self.persist[c.LIVES] == 0:
             self.next = c.GAME_OVER
