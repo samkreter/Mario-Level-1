@@ -23,7 +23,7 @@ class Menu(tools._State):
     def startup(self, current_time, persist):
         """Called every time the game's state becomes this one.  Initializes
         certain values"""
-        self.next = c.LOAD_SCREEN
+        self.next = c.LEVEL1 #DONE - changed from c.LOAD_SCREEN
         self.persist = persist
         self.game_info = persist
         self.overhead_info = info.OverheadInfo(self.game_info, c.MAIN_MENU)

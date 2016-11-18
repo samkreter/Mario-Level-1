@@ -13,7 +13,7 @@ def main():
                   c.TIME_OUT: load_screen.TimeOut(),
                   c.GAME_OVER: load_screen.GameOver(),
                   c.LEVEL1: level1.Level1()}
-    run_it.setup_states(state_dict, c.MAIN_MENU)
+    run_it.setup_states(state_dict, c.LEVEL1)
     run_it.main()
 
 

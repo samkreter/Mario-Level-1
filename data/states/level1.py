@@ -1338,8 +1338,9 @@ class Level1(tools._State):
         """sets the new game values after a player's death"""
         if self.game_info[c.SCORE] > self.persist[c.TOP_SCORE]:
             self.persist[c.TOP_SCORE] = self.game_info[c.SCORE]
-        # if self.mario.dead:
-        #     self.persist[c.LIVES] -= 1
+        if self.mario.dead:
+            test = 5
+            #self.persist[c.LIVES] -= 1
 
         if self.persist[c.LIVES] == 0:
             self.next = c.GAME_OVER
@@ -1353,7 +1354,7 @@ class Level1(tools._State):
             if self.mario.rect.x > 3670 \
                     and self.game_info[c.CAMERA_START_X] == 0:
                 self.game_info[c.CAMERA_START_X] = 3440
-            self.next = c.LOAD_SCREEN
+            self.next = c.LEVEL1 #DONE Changed from c.LOAD_SCREEN
 
 
     def check_if_time_out(self):

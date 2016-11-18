@@ -39,6 +39,7 @@ class Control(object):
         self.state_dict = state_dict
         self.state_name = start_state
         self.state = self.state_dict[self.state_name]
+        self.state.startup(self.current_time,)
 
     def update(self):
         self.current_time = pg.time.get_ticks()
@@ -58,6 +59,7 @@ class Control(object):
 
     def event_loop(self):
         self.keys = [0] * 968
+
         if self.state_name == 'level1':
             if self.counter == len(self.MOVES):
                 self.counter = 0
@@ -116,6 +118,7 @@ class _State(object):
 
     def cleanup(self):
         self.done = False
+        self.counter = 0
         return self.persist
 
     def update(self, surface, keys, current_time):
