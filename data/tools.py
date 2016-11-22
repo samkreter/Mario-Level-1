@@ -45,7 +45,9 @@ class Control(object):
         if self.state.quit:
             self.done = True
         elif self.state.done:
-            self.flip_state()
+            self.done = True
+            #self.flip_state()
+            return
         self.state.update(self.screen, self.keys, self.current_time)
 
     def flip_state(self):
@@ -91,6 +93,8 @@ class Control(object):
         while not self.done:
             self.event_loop()
             self.update()
+            if self.done:
+                return self.state.game_info
             pg.display.update()
             self.clock.tick(self.fps)
             if self.show_fps:

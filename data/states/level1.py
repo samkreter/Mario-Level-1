@@ -16,6 +16,8 @@ from .. components import info
 from .. components import score
 from .. components import castle_flag
 
+from copy import copy
+
 
 class Level1(tools._State):
     def __init__(self):
@@ -28,12 +30,14 @@ class Level1(tools._State):
            c.LEVEL_STATE: None,
            c.CAMERA_START_X: 0,
            c.MARIO_DEAD: False}
+        self.startup()
 
-    def startup(self, current_time):
+    def startup(self):
         """Called when the State object is created"""
-        self.game_info = self.base_game_info
+        self.time_var = pg.time.get_ticks()
+        self.game_info = copy(self.base_game_info)
         self.persist = self.game_info
-        self.game_info[c.CURRENT_TIME] = current_time
+        self.game_info[c.CURRENT_TIME] = self.time_var
         self.game_info[c.LEVEL_STATE] = c.NOT_FROZEN
         self.game_info[c.MARIO_DEAD] = False
 
@@ -361,7 +365,7 @@ class Level1(tools._State):
 
     def update(self, surface, keys, current_time):
         """Updates Entire level using states.  Called by the control object"""
-        self.game_info[c.CURRENT_TIME] = self.current_time = current_time
+        self.game_info[c.CURRENT_TIME] = self.current_time = current_time - self.time_var
         self.handle_states(keys)
         self.check_if_time_out()
         self.blit_everything(surface)
@@ -1359,10 +1363,11 @@ class Level1(tools._State):
         elif self.overhead_info_display.time == 0:
             self.next = c.TIME_OUT
         else:
-            if self.mario.rect.x > 3670 \
-                    and self.game_info[c.CAMERA_START_X] == 0:
-                self.game_info[c.CAMERA_START_X] = 0#3440
-            self.next = c.LEVEL1 #DONE Changed from c.LOAD_SCREEN
+            # if self.mario.rect.x > 3670 \
+            #         and self.game_info[c.CAMERA_START_X] == 0:
+            #     self.game_info[c.CAMERA_START_X] = 3440
+            self.end_game()
+            #self.next = c.LEVEL1 #DONE Changed from c.LOAD_SCREEN
 
 
     def check_if_time_out(self):
