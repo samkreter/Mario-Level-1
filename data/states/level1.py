@@ -1361,7 +1361,7 @@ class Level1(tools._State):
         else:
             if self.mario.rect.x > 3670 \
                     and self.game_info[c.CAMERA_START_X] == 0:
-                self.game_info[c.CAMERA_START_X] = 3440
+                self.game_info[c.CAMERA_START_X] = 0#3440
             self.next = c.LEVEL1 #DONE Changed from c.LOAD_SCREEN
 
 
