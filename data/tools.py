@@ -19,7 +19,6 @@ class Control(object):
     the event_loop which passes events to States as needed. Logic for flipping
     states is also found here."""
     def __init__(self, caption):
-        print(pg.K_a)
         self.screen = pg.display.get_surface()
         self.done = False
         self.clock = pg.time.Clock()
@@ -39,7 +38,7 @@ class Control(object):
         self.state_dict = state_dict
         self.state_name = start_state
         self.state = self.state_dict[self.state_name]
-        self.state.startup(self.current_time,)
+        #self.state.startup(self.current_time)
 
     def update(self):
         self.current_time = pg.time.get_ticks()
@@ -52,8 +51,9 @@ class Control(object):
     def flip_state(self):
         previous, self.state_name = self.state_name, self.state.next
         persist = self.state.cleanup()
+        print(persist)
         self.state = self.state_dict[self.state_name]
-        self.state.startup(self.current_time, persist)
+        self.state.startup(self.current_time)
         self.state.previous = previous
 
 

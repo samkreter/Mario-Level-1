@@ -20,10 +20,18 @@ from .. components import castle_flag
 class Level1(tools._State):
     def __init__(self):
         tools._State.__init__(self)
+        self.base_game_info = {c.COIN_TOTAL: 0,
+           c.SCORE: 0,
+           c.LIVES: 3,
+           c.TOP_SCORE: 0,
+           c.CURRENT_TIME: 0.0,
+           c.LEVEL_STATE: None,
+           c.CAMERA_START_X: 0,
+           c.MARIO_DEAD: False}
 
-    def startup(self, current_time, persist):
+    def startup(self, current_time):
         """Called when the State object is created"""
-        self.game_info = persist
+        self.game_info = self.base_game_info
         self.persist = self.game_info
         self.game_info[c.CURRENT_TIME] = current_time
         self.game_info[c.LEVEL_STATE] = c.NOT_FROZEN
