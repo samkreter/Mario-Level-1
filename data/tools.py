@@ -4,6 +4,7 @@ import os
 import pygame as pg
 from time import sleep
 from moves import MOVES
+from . import constants as c
 
 
 keybinding = {
@@ -60,6 +61,7 @@ class Control(object):
 
 
     def event_loop(self):
+
         self.keys = [0] * 968
 
         if self.state_name == 'level1':

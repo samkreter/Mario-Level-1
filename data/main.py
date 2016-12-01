@@ -10,7 +10,11 @@ def main():
         run_it = tools.Control(setup.ORIGINAL_CAPTION)
         state_dict = {c.LEVEL1: level1.Level1()}
         run_it.setup_states(state_dict, c.LEVEL1)
-        print(run_it.main())
+        current_run = run_it.main()
+        if current_run['mario dead']:
+            print("Dead")
+        else:
+            print("We gucci")
 
 
 
