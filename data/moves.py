@@ -47,6 +47,84 @@ MOVES = [pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
     pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
     pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
     pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,\
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,\
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,\
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,\
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,\
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,\
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,\
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,\
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,pg.K_a,\
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
+    pg.K_a,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT, \
     #This line is for the first hole
     pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_RIGHT,pg.K_a,pg.K_RIGHT, \
     pg.K_LEFT,pg.K_LEFT,pg.K_LEFT,pg.K_LEFT,pg.K_LEFT,pg.K_LEFT,pg.K_LEFT, \

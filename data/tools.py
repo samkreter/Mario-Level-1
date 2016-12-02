@@ -24,8 +24,8 @@ class Control(object):
         self.done = False
         self.clock = pg.time.Clock()
         self.caption = caption
-        self.fps = 60
-        self.show_fps = False
+        self.fps = 150
+        self.show_fps = True
         self.current_time = 0.0
         self.keys = pg.key.get_pressed()
         self.state_dict = {}
@@ -75,10 +75,8 @@ class Control(object):
         #     elif event.type == pg.KEYDOWN:
         #         self.keys = pg.key.get_pressed()
         #         self.toggle_show_fps(event.key)
-        #         print("down:" + str(event.key))
         #     elif event.type == pg.KEYUP:
         #         self.keys = pg.key.get_pressed()
-        #         print("up:" + str(event.key))
 
         #     self.state.get_event(event)
 
@@ -95,7 +93,11 @@ class Control(object):
         while not self.done:
             self.event_loop()
             self.update()
+            #set Timeout
+            if self.state.game_info['current time'] > 70000:
+                return {'mario dead':True}
             if self.done:
+                self.state.game_info['counter'] = self.counter
                 return self.state.game_info
             pg.display.update()
             self.clock.tick(self.fps)
