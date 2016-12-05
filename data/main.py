@@ -39,7 +39,7 @@ def main():
                 tmp = list(child)
 
                 if(lastPos):
-                    for index in range(lastPos - 100,lastPos + 10):
+                    for index in range(lastPos - 200,lastPos + 10):
                         child[index] = random.choice(moveList)
 
                 run_it = tools.Control(child)
@@ -53,7 +53,7 @@ def main():
                     break;
 
 
-
+#44 + 77 + 48 + 60 / 3
 
 
 
