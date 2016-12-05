@@ -22,14 +22,13 @@ def signal_handler(signal, frame):
         np.savetxt("timings/deathResults.csv",np.array(DeathResults),delimiter=',')
         sys.exit(0)
 
-
+#Perfroms one point cross over
 def singleCrossOver(p1,p2):
     start = .2
     index = random.choice(range(int(len(p1)*start),len(p1)))
     return (p1[:index] + p2[index:],p2[:index] + p1[index:])
 
 def main():
-    """Add states to control here."""
 
     #Register the signal handler
     signal.signal(signal.SIGINT, signal_handler)
@@ -104,12 +103,11 @@ def main():
 
                     #Get pos where death occured
                     lastPos = cRun['counter']
-
+                    print(cRun)
                     deathTimes.append(time.time() - deathTimeStart)
 
                     if not cRun['mario dead']:
                         print("Produced Working Solution")
-                        lastPos = None
                         DeathResults.append([sum(deathTimes),len(deathTimes)] + deathTimes)
                         break
 
@@ -119,6 +117,7 @@ def main():
                 children.append(child)
                 childFitness.append(cRun['current time'])
                 childLastPosList.append(lastPos)
+                lastPos = None
 
 
         iterTimeEnd = time.time()
@@ -138,22 +137,13 @@ def main():
         parentsFitness = [parentsFitness[i] for i in selected]
         parentLastPosList = [parentLastPosList[i] for i in selected]
 
-
-        print(gen)
-        print(parentsFitness[0])
-        print(parentLastPosList[0])
-        print(iterTimeEnd - iterTimeStart)
-        print(parents[0])
-        print("######################")
-        print(parents[0][:(parentLastPosList[0]+10)])
-
         #Iteration|Score|# of moves|Totoal Time|best move list
         MainResults.append([gen,parentsFitness[0],parentLastPosList[0],
             (iterTimeEnd - iterTimeStart), parents[0][:(parentLastPosList[0]+10)]])
 
 
-    np.savetxt("timings/mainResults.csv",np.array(MainResults),delimiter=',')
-    np.savetxt("timings/deathResults.csv",np.array(DeathResults),delimiter=',')
+    np.savetxt("timings/mainResults.csv", np.array(MainResults),delimiter=',')
+    np.savetxt("timings/deathResults.csv", np.array(DeathResults),delimiter=',')
 
         # state_dict = {c.MAIN_MENU: main_menu.Menu(),
         #               c.LOAD_SCREEN: load_screen.LoadScreen(),
