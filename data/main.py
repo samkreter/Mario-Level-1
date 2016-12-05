@@ -8,6 +8,19 @@ import pygame as pg
 import random
 import numpy as np
 import time
+import signal
+import sys
+
+#Timing and Results store
+MainResults = []
+ConfigResults = []
+DeathResults = []
+
+#catch the control c and save the files
+def signal_handler(signal, frame):
+        np.savetxt("timings/mainResults.csv",np.array(MainResults),delimiter=',')
+        np.savetxt("timings/deathResults.csv",np.array(DeathResults),delimiter=',')
+        sys.exit(0)
 
 
 def singleCrossOver(p1,p2):
@@ -17,15 +30,17 @@ def singleCrossOver(p1,p2):
 
 def main():
     """Add states to control here."""
+
+    #Register the signal handler
+    signal.signal(signal.SIGINT, signal_handler)
+
+    #move list for random options to create a valid solution laster
     moveList = [pg.K_a,pg.K_RIGHT,0]
 
-    MainResults = []
-    ConfigResults = []
-    DeathResults = []
 
     MAXFITNESS = 71000
-    MAX_GERATIONS = 100
-    NumParents = 2
+    MAX_GERATIONS = 1
+    NumParents = 1
     MutationPercent = .3
     crossProb = .9
     NumMutations = int(len(MOVES) * MutationPercent)
@@ -34,16 +49,20 @@ def main():
     lastPos = None
     parentsFitness = []
     childFitness = []
+    parentLastPosList = []
+    childLastPosList = []
 
     #init the parents
     for i in range(NumParents):
         parents.append(list(MOVES))
         parentsFitness.append(MAXFITNESS)
+        parentLastPosList.append(0)
 
 
 
     for gen in range(MAX_GERATIONS):
 
+        iterTimeStart = time.time()
         ####Generation
         for i in range(NumParents):
             childBreed = []
@@ -69,7 +88,9 @@ def main():
             for j,child in enumerate(childBreed):
 
                 print("Starting child:" + str(j) + " of parent:" + str(i))
+                deathTimes = []
                 while(1):
+                    deathTimeStart = time.time()
                     #Randomize around point of death to find living solution
                     if(lastPos):
                         for index in range(lastPos - 150,lastPos):
@@ -84,30 +105,55 @@ def main():
                     #Get pos where death occured
                     lastPos = cRun['counter']
 
+                    deathTimes.append(time.time() - deathTimeStart)
+
                     if not cRun['mario dead']:
                         print("Produced Working Solution")
+                        lastPos = None
+                        DeathResults.append([sum(deathTimes),len(deathTimes)] + deathTimes)
                         break
+
                     print("died for child:" + str(j))
 
                 #add solution and fitness
                 children.append(child)
                 childFitness.append(cRun['current time'])
+                childLastPosList.append(lastPos)
 
+
+        iterTimeEnd = time.time()
         #Combine parents and child for selection (U+V)
         parents = parents + children
         parentsFitness = parentsFitness + childFitness
+        parentLastPosList = parentLastPosList + childLastPosList
 
         #Selection############
-        selectSort = [i for i in sorted(enumerate(parentsFitness), key=lambda x:x[1])]
+        selectSort = sorted(enumerate(parentsFitness), key=lambda x:x[1])
         selected = zip(*selectSort)[0][0:NumParents]
+
         print("selection is " + str(selected))
+
         #replace old parents with the newly selected ones
         parents = [parents[i] for i in selected]
         parentsFitness = [parentsFitness[i] for i in selected]
+        parentLastPosList = [parentLastPosList[i] for i in selected]
 
 
-# np.savetxt("test.csv",t,delimiter=',')
+        print(gen)
+        print(parentsFitness[0])
+        print(parentLastPosList[0])
+        print(iterTimeEnd - iterTimeStart)
+        print(parents[0])
+        print("######################")
+        print(parents[0][:(parentLastPosList[0]+10)])
 
+        #Iteration|Score|# of moves|Totoal Time|best move list
+        MainResults.append([gen,parentsFitness[0],parentLastPosList[0],
+            (iterTimeEnd - iterTimeStart), parents[0][:(parentLastPosList[0]+10)]])
+
+
+    np.savetxt("timings/mainResults.csv",np.array(MainResults),delimiter=',')
+    np.savetxt("timings/deathResults.csv",np.array(DeathResults),delimiter=',')
 
         # state_dict = {c.MAIN_MENU: main_menu.Menu(),
         #               c.LOAD_SCREEN: load_screen.LoadScreen(),
