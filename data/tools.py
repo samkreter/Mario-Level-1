@@ -3,7 +3,6 @@ __author__ = 'justinarmstrong'
 import os
 import pygame as pg
 from time import sleep
-from moves import MOVES
 from . import constants as c
 
 
@@ -19,11 +18,11 @@ class Control(object):
     """Control class for entire project. Contains the game loop, and contains
     the event_loop which passes events to States as needed. Logic for flipping
     states is also found here."""
-    def __init__(self, caption):
+    def __init__(self, moves):
         self.screen = pg.display.get_surface()
         self.done = False
         self.clock = pg.time.Clock()
-        self.caption = caption
+        self.caption = "Testing"
         self.fps = 150
         self.show_fps = True
         self.current_time = 0.0
@@ -31,7 +30,7 @@ class Control(object):
         self.state_dict = {}
         self.state_name = None
         self.state = None
-        self.MOVES = MOVES
+        self.MOVES = moves
         self.counter = 0
 
 

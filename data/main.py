@@ -11,14 +11,14 @@ import random
 
 def main():
     """Add states to control here."""
-    moveList = [pg.K_a,pg.K_RIGHT,pg.K_LEFT,0]
+    moveList = [pg.K_a,pg.K_RIGHT,0]
     # currMove = {}
     NumParents = 5
     MutationPercent = .3
     NumMutations = int(len(MOVES) * MutationPercent)
     parents = []
     cildren = []
-    lastPos = 50
+    lastPos = None
 
     #init the parents
     for i in range(NumParents):
@@ -35,21 +35,23 @@ def main():
             child = list(parents[i])
             # for index in (lastPos + random.sample(range(len(MOVES)), NumMutations)):
             #     child[index] = random.choice(moveList)
+            while(1):
+                tmp = list(child)
 
-            for index in range(lastPos - 4,lastPos + 10):
-                child[index] = random.choice(moveList)
+                if(lastPos):
+                    for index in range(lastPos - 100,lastPos + 10):
+                        child[index] = random.choice(moveList)
 
+                print(set(tmp).symmetric_difference(set(child)))
+                run_it = tools.Control(child)
+                state_dict = {c.LEVEL1: level1.Level1()}
+                run_it.setup_states(state_dict, c.LEVEL1)
+                cRun = run_it.main()
+                lastPos = cRun['counter']
 
-            run_it = tools.Control(child)
-            state_dict = {c.LEVEL1: level1.Level1()}
-            run_it.setup_states(state_dict, c.LEVEL1)
-            cRun = run_it.main()
-            lastPos = cRun['counter']
-            print(lastPos)
-
-            if not cRun['mario dead']:
-                print("We Lived")
-                continue
+                if not cRun['mario dead']:
+                    print("We Lived")
+                    break;
 
 
 
