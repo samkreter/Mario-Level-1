@@ -12,21 +12,24 @@ import random
 def main():
     """Add states to control here."""
     moveList = [pg.K_a,pg.K_RIGHT,0]
-    # currMove = {}
-    NumParents = 5
+
+    MAXFITNESS = 71000
+    NumParents = 2
     MutationPercent = .3
     NumMutations = int(len(MOVES) * MutationPercent)
     parents = []
-    cildren = []
+    children = []
     lastPos = None
+    parentsFitness = []
+    childFitness = []
 
     #init the parents
     for i in range(NumParents):
         parents.append(list(MOVES))
+        parentsFitness.append(MAXFITNESS)
 
 
-    parentsFitness = []
-    childFitness = []
+
     while(1):
 
         ####Generation
@@ -34,14 +37,15 @@ def main():
 
             #Mutate the parents
             child = list(parents[i])
-            # for index in (lastPos + random.sample(range(len(MOVES)), NumMutations)):
-            #     child[index] = random.choice(moveList)
 
+            for index in (random.sample(range(len(MOVES)), NumMutations)):
+                child[index] = random.choice(moveList)
 
+            print("Starting child:" + str(i))
             while(1):
                 #Randomize around point of death to find living solution
                 if(lastPos):
-                    for index in range(lastPos - 200,lastPos + 10):
+                    for index in range(lastPos - 150,lastPos):
                         child[index] = random.choice(moveList)
 
                 #Run the fitness game
@@ -56,6 +60,7 @@ def main():
                 if not cRun['mario dead']:
                     print("Produced Working Solution")
                     break
+                print("died for child:" + str(i))
 
             #add solution and fitness
             children.append(child)
@@ -68,7 +73,7 @@ def main():
         #Selection############
         selectSort = [i for i in sorted(enumerate(parentsFitness), key=lambda x:x[1])]
         selected = zip(*selectSort)[0][0:NumParents]
-
+        print("selection is " + str(selected))
         #replace old parents with the newly selected ones
         parents = [parents[i] for i in selected]
         parentsFitness = [parentsFitness[i] for i in selected]
