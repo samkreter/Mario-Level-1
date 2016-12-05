@@ -19,7 +19,12 @@ def main():
     """Add states to control here."""
     moveList = [pg.K_a,pg.K_RIGHT,0]
 
+    MainResults = []
+    ConfigResults = []
+    DeathResults = []
+
     MAXFITNESS = 71000
+    MAX_GERATIONS = 100
     NumParents = 2
     MutationPercent = .3
     crossProb = .9
@@ -37,7 +42,7 @@ def main():
 
 
 
-    while(1):
+    for gen in range(MAX_GERATIONS):
 
         ####Generation
         for i in range(NumParents):
