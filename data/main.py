@@ -42,7 +42,6 @@ def main():
                     for index in range(lastPos - 100,lastPos + 10):
                         child[index] = random.choice(moveList)
 
-                print(set(tmp).symmetric_difference(set(child)))
                 run_it = tools.Control(child)
                 state_dict = {c.LEVEL1: level1.Level1()}
                 run_it.setup_states(state_dict, c.LEVEL1)

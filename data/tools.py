@@ -94,7 +94,10 @@ class Control(object):
             self.update()
             #set Timeout
             if self.state.game_info['current time'] > 70000:
-                return {'mario dead':True}
+                print("Time Out")
+                return {'mario dead':True,
+                        'counter':None
+                        }
             if self.done:
                 self.state.game_info['counter'] = self.counter
                 return self.state.game_info
