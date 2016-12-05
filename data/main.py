@@ -18,8 +18,8 @@ DeathResults = []
 
 #catch the control c and save the files
 def signal_handler(signal, frame):
-        np.savetxt("timings/mainResults.csv",np.array(MainResults),delimiter=',')
-        np.savetxt("timings/deathResults.csv",np.array(DeathResults),delimiter=',')
+        np.savetxt("timings/mainResults.csv",np.array(MainResults),delimiter=',',fmt="%.4f")
+        np.savetxt("timings/deathResults.csv",np.array(DeathResults),delimiter=',',fmt="%.4f")
         sys.exit(0)
 
 #Perfroms one point cross over
@@ -37,7 +37,7 @@ def main():
     moveList = [pg.K_a,pg.K_RIGHT,0]
 
 
-    MAXFITNESS = 71000
+    BASEFITNESS = 0
     MAX_GERATIONS = 1
     NumParents = 1
     MutationPercent = .3
@@ -54,7 +54,7 @@ def main():
     #init the parents
     for i in range(NumParents):
         parents.append(list(MOVES))
-        parentsFitness.append(MAXFITNESS)
+        parentsFitness.append(BASEFITNESS)
         parentLastPosList.append(0)
 
 
@@ -68,8 +68,6 @@ def main():
 
             #Mutate the parents
             childBreed.append(list(parents[i]))
-
-
 
 
             #Mutation
@@ -103,7 +101,6 @@ def main():
 
                     #Get pos where death occured
                     lastPos = cRun['counter']
-                    print(cRun)
                     deathTimes.append(time.time() - deathTimeStart)
 
                     if not cRun['mario dead']:
@@ -115,7 +112,7 @@ def main():
 
                 #add solution and fitness
                 children.append(child)
-                childFitness.append(cRun['current time'])
+                childFitness.append(cRun['score'])
                 childLastPosList.append(lastPos)
                 lastPos = None
 
@@ -127,7 +124,7 @@ def main():
         parentLastPosList = parentLastPosList + childLastPosList
 
         #Selection############
-        selectSort = sorted(enumerate(parentsFitness), key=lambda x:x[1])
+        selectSort = sorted(enumerate(parentsFitness), key=lambda x:x[1], reverse=True)
         selected = zip(*selectSort)[0][0:NumParents]
 
         print("selection is " + str(selected))
@@ -137,13 +134,14 @@ def main():
         parentsFitness = [parentsFitness[i] for i in selected]
         parentLastPosList = [parentLastPosList[i] for i in selected]
 
-        #Iteration|Score|# of moves|Totoal Time|best move list
+
         MainResults.append([gen,parentsFitness[0],parentLastPosList[0],
-            (iterTimeEnd - iterTimeStart), parents[0][:(parentLastPosList[0]+10)]])
+            (iterTimeEnd - iterTimeStart)] + parents[0][:(parentLastPosList[0]+10)])
 
-
-    np.savetxt("timings/mainResults.csv", np.array(MainResults),delimiter=',')
-    np.savetxt("timings/deathResults.csv", np.array(DeathResults),delimiter=',')
+    #Iteration | Score | # of moves | Totoal Time | best move list
+    np.savetxt("timings/mainResults.csv", np.array(MainResults),delimiter=',',fmt="%.4f")
+    #Total Time For solution | # of attempts | times of the attemps
+    np.savetxt("timings/deathResults.csv", np.array(DeathResults),delimiter=',',fmt="%.4f")
 
         # state_dict = {c.MAIN_MENU: main_menu.Menu(),
         #               c.LOAD_SCREEN: load_screen.LoadScreen(),
