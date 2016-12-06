@@ -37,11 +37,14 @@ def main():
     moveList = [pg.K_a,pg.K_RIGHT,0]
 
 
+    # np.load()
+
     BASEFITNESS = 0
-    MAX_GERATIONS = 1
-    NumParents = 1
+    MAX_GERATIONS = 2 #(15)
+    NumParents = 2
     MutationPercent = .3
-    crossProb = .9
+    MutationProb = (0,.5,1)
+    crossProb = .9 #(0,.5,1)
     NumMutations = int(len(MOVES) * MutationPercent)
     parents = []
     children = []
@@ -58,7 +61,6 @@ def main():
         parentLastPosList.append(0)
 
 
-
     for gen in range(MAX_GERATIONS):
 
         iterTimeStart = time.time()
@@ -71,8 +73,9 @@ def main():
 
 
             #Mutation
-            for index in (random.sample(range(len(MOVES)), NumMutations)):
-                childBreed[0][index] = random.choice(moveList)
+            if random.uniform(0,1) < MutationProb:
+                for index in (random.sample(range(len(MOVES)), NumMutations)):
+                    childBreed[0][index] = random.choice(moveList)
 
             #CrossOver
             if random.uniform(0,1) < crossProb and i < NumParents - 1:
@@ -86,6 +89,7 @@ def main():
 
                 print("Starting child:" + str(j) + " of parent:" + str(i))
                 deathTimes = []
+                count = 0
                 while(1):
                     deathTimeStart = time.time()
                     #Randomize around point of death to find living solution
@@ -105,8 +109,14 @@ def main():
 
                     if not cRun['mario dead']:
                         print("Produced Working Solution")
-                        DeathResults.append([sum(deathTimes),len(deathTimes)] + deathTimes)
+                        DeathResults.append([sum(deathTimes),float(len(deathTimes))])
+                        deathTimes = []
                         break
+                    count = count + 1
+                    if count > 20:
+                        print("Times out")
+                        cRun['score'] = 0
+                        break;
 
                     print("died for child:" + str(j))
 
@@ -138,9 +148,10 @@ def main():
         MainResults.append([gen,parentsFitness[0],parentLastPosList[0],
             (iterTimeEnd - iterTimeStart)] + parents[0][:(parentLastPosList[0]+10)])
 
+
     #Iteration | Score | # of moves | Totoal Time | best move list
     np.savetxt("timings/mainResults.csv", np.array(MainResults),delimiter=',',fmt="%.4f")
-    #Total Time For solution | # of attempts | times of the attemps
+    #Total Time For solution | # of attempts
     np.savetxt("timings/deathResults.csv", np.array(DeathResults),delimiter=',',fmt="%.4f")
 
         # state_dict = {c.MAIN_MENU: main_menu.Menu(),
