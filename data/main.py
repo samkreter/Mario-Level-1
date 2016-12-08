@@ -1,9 +1,12 @@
 from __future__ import division #because I hate python3
 
+#Import all the files from the game module
 from . import setup,tools
 from .states import main_menu,load_screen,level1
 from . import constants as c
 from sets import Set
+
+#pull in the random moves index to start the algorithm
 from moves import MOVES
 
 import pygame as pg
@@ -15,18 +18,22 @@ import sys
 import itertools
 import csv
 
-
+#Global varibles to hold data collectors
 MainResults = []
 ConfigResults = []
 DeathResults = []
 
 
 #Make sure that the program does not fail to print the results
+# This has caused a lot of pain
 def writeOutput(MainResults,ConfigResults,DeathResults):
 
+    #open up all the files
     f1 = open("timings/mainResults.csv",'a')
     f2 = open("timings/deathResults.csv",'a')
     f3 = open("timings/configResults.csv",'a')
+
+    #Try the first write with the percisions
     try:
         #Iteration | Score | # of moves | Totoal Time | best move list
         np.savetxt(f1, np.array(MainResults),delimiter=',',fmt="%.4f")
@@ -37,7 +44,8 @@ def writeOutput(MainResults,ConfigResults,DeathResults):
         # Link Index | NumParents | Mutation Prob | CrossOver Prob
         np.savetxt(f3,np.array(ConfigResults),delimiter=',',fmt="%.4f")
     except Exception, e:
-        print(e)
+
+        #If that fails try without persions
         print("Failed to do percision")
         try:
             #Iteration | Score | # of moves | Totoal Time | best move list
@@ -49,7 +57,7 @@ def writeOutput(MainResults,ConfigResults,DeathResults):
             # Link Index | NumParents | Mutation Prob | CrossOver Prob
             np.savetxt(f3,np.array(ConfigResults),delimiter=',')
         except Exception, e:
-            print(e)
+        #Finally just use the standard file operations to make sure we get the data
             print("Failed to do regular")
 
 
@@ -61,6 +69,7 @@ def writeOutput(MainResults,ConfigResults,DeathResults):
             wr2.writerows(f2)
             wr3.writerows(f3)
 
+        #close the files
         f1.close()
         f2.close()
         f3.close()
@@ -98,7 +107,8 @@ def main():
     # MOVES = list(np.loadtxt("timings/m1.csv",delimiter=',')[1][4:].astype(int))
     # MOVES += MOVES
 
-    BASEFITNESS = 0
+
+    BASEFITNESS = 0 #used for the inital set when no data has been collected
     MAX_GERATIONS = 10
     NumParentsList = (2,4,5)
     MutationPercent = .3
@@ -106,14 +116,18 @@ def main():
     crossProbList = (0,.7,1)
     proportionalSelectList = (1,0)
 
-    totalTimeStart = time.time()
+    totalTimeStart = time.time() #get the total time.
 
+    #Loop through the possible paramters
     for NumParents,MutationProb,crossProb,proportionalSelect in list(itertools.product(NumParentsList,MutationProbList,crossProbList,proportionalSelectList)):
+
         #Make sure there is some for of mutation or there will be no change with parents
         if MutationProb == 0 and crossProb == 0:
             continue
 
+        #Add the configuration to be recored later
         ConfigResults.append([float(len(MainResults)),float(NumParents),float(MutationProb),float(crossProb),float(proportionalSelect)])
+
 
         print("##### Using Configureation #######")
         print("NumParents: " + str(NumParents))
@@ -122,7 +136,9 @@ def main():
         print("proportionalSelect: " + str(proportionalSelect))
         print("#################################")
 
+
         NumMutations = int(len(MOVES) * MutationPercent)
+        #Set up the varibles for the configuration
         parents = []
         children = []
         lastPos = None
@@ -131,17 +147,19 @@ def main():
         parentLastPosList = []
         childLastPosList = []
 
-        #initilize the parents
+        #initilize the first population
         for i in range(NumParents):
             parents.append(list(MOVES))
             parentsFitness.append(BASEFITNESS)
             parentLastPosList.append(0)
 
 
+        #start going through the generations
         for gen in range(MAX_GERATIONS):
 
             iterTimeStart = time.time()
-            ####Generation
+
+            #created the children and find their fitness
             for i in range(NumParents):
                 childBreed = []
 
@@ -160,14 +178,16 @@ def main():
                     childBreed.append(tmp[0])
                     childBreed.append(tmp[1])
 
-                #Compute the fitness
+                #Compute the fitness for each child
                 for j,child in enumerate(childBreed):
 
                     print("Gen:" + str(gen) + " - Starting child: " + str(j) + " of parent:" + str(i))
+
                     deathTimes = []
-                    count = 0
+                    count = 0 # make sure we don't get stuck infanitly
                     while(1):
                         deathTimeStart = time.time()
+
                         #Randomize around point of death to find living solution
                         if(lastPos):
                             for index in range(lastPos - 150,lastPos):
@@ -177,18 +197,26 @@ def main():
                         run_it = tools.Control(child)
                         state_dict = {c.LEVEL1: level1.Level1()}
                         run_it.setup_states(state_dict, c.LEVEL1)
+                        #get the results of that game
                         cRun = run_it.main()
 
                         #Get pos where death occured
                         lastPos = cRun['counter']
+
+                        #recored the time of death
                         deathTimes.append(time.time() - deathTimeStart)
 
+
+                        #if mario survied, its valid, move to next child
                         if not cRun['mario dead']:
                             print("Produced Working Solution")
                             DeathResults.append([sum(deathTimes),float(len(deathTimes))])
                             deathTimes = []
                             break
+
                         count = count + 1
+
+                        #check if marios stuck in the infinite loop
                         if count > 100:
                             print("Times out")
                             cRun['score'] = 0
@@ -204,13 +232,14 @@ def main():
 
 
             iterTimeEnd = time.time()
-            #Combine parents and child for selection (U+V)
+            #Combine parents and child for selection (U+Lambda)
             parents = parents + children
             parentsFitness = parentsFitness + childFitness
             parentLastPosList = parentLastPosList + childLastPosList
 
             #Selection############
 
+            #Proportioanl Selection
             if(proportionalSelect):
                 overall = sum(parentsFitness)
                 p = []
@@ -219,10 +248,11 @@ def main():
                     p.append(fit/overall)
 
                 selected = np.random.choice(len(parentsFitness), NumParents, p=p)
-
+            #Top Rank selection
             else:
                 selectSort = sorted(enumerate(parentsFitness), key=lambda x:x[1], reverse=True)
                 selected = zip(*selectSort)[0][0:NumParents]
+
 
             print("selection is " + str(selected) + " High score is: " + str(parentsFitness[0]))
 
@@ -231,23 +261,17 @@ def main():
             parentsFitness = [parentsFitness[i] for i in selected]
             parentLastPosList = [parentLastPosList[i] for i in selected]
 
-
+            #get the stats to the temp var
             MainResults.append([gen,parentsFitness[0],parentLastPosList[0],
                 (iterTimeEnd - iterTimeStart)] + parents[0][:(parentLastPosList[0]+10)])
 
+            #write the stats to the file to make sure not to lose them
             writeOutput(MainResults,ConfigResults,DeathResults)
-            #Timing and Results store
+
+            #Reset the tmp varibles
             MainResults = []
             ConfigResults = []
             DeathResults = []
 
     print("Total time is: " + str(time.time() - totalTimeStart))
 
-
-
-
-        # state_dict = {c.MAIN_MENU: main_menu.Menu(),
-        #               c.LOAD_SCREEN: load_screen.LoadScreen(),
-        #               c.TIME_OUT: load_screen.TimeOut(),
-        #               c.GAME_OVER: load_screen.GameOver(),
-        #               c.LEVEL1: level1.Level1()}
